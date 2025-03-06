@@ -26,6 +26,8 @@ var dash_cooldown_timer := 0.0
 var dash_velocity_x = 0
 var is_dashing := false
 
+var prev_dir = 0
+
 func jump():
 	var tween = create_tween()
 	tween.tween_property($sprite, "scale", Vector2(0.7, 1.3), 0.1)
@@ -33,7 +35,6 @@ func jump():
 	velocity.y = jump_force
 
 func _physics_process(delta: float) -> void:
-
 	var on_floor = is_on_floor()
 	
 	if on_floor and was_in_air:
@@ -77,6 +78,11 @@ func _physics_process(delta: float) -> void:
 
 	var direction := Input.get_axis("left", "right")
 	
+	if direction and direction != prev_dir:
+		var img = $dash_effect.texture.get_image()
+		img.flip_x()
+		$dash_effect.texture = ImageTexture.create_from_image(img)
+	
 	if is_dashing:
 		dash_timer -= delta
 		velocity.x = dash_velocity_x
@@ -96,7 +102,8 @@ func _physics_process(delta: float) -> void:
 			
 		if Input.is_action_just_pressed("dash") and can_dash and dash_cooldown_timer <= 0:
 			start_dash()
-			
+	
+	prev_dir = 1 if not $sprite.flip_h else -1
 	dash_cooldown_timer -= delta
 	dash_effect_timer -= delta
 

@@ -48,6 +48,7 @@ _data = {
 colors = PackedColorArray(2.02149e-06, 0.564953, 0.86301, 1, 1, 1, 1, 0)
 
 [node name="player" type="CharacterBody2D"]
+position = Vector2(74, 11)
 script = ExtResource("1_w3spg")
 
 [node name="sprite" type="Sprite2D" parent="."]
@@ -66,7 +67,7 @@ libraries = {
 }
 
 [node name="dash_effect" type="CPUParticles2D" parent="."]
-emitting = false
+scale = Vector2(-1, -1)
 amount = 4
 speed_scale = 4.0
 randomness = 0.2
