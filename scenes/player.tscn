@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://buqtjea7eb62e"]
+[gd_scene load_steps=9 format=3 uid="uid://buqtjea7eb62e"]
 
 [ext_resource type="Texture2D" uid="uid://dfjtj40dlvp41" path="res://assets/tile_0097.png" id="1_078nj"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_w3spg"]
@@ -47,6 +47,10 @@ _data = {
 [sub_resource type="Gradient" id="Gradient_lrxvu"]
 colors = PackedColorArray(2.02149e-06, 0.564953, 0.86301, 1, 1, 1, 1, 0)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n10af"]
+radius = 3.0
+height = 16.0
+
 [node name="player" type="CharacterBody2D"]
 position = Vector2(74, 11)
 script = ExtResource("1_w3spg")
@@ -78,3 +82,39 @@ metadata/_edit_lock_ = true
 
 [node name="land_effect_pos" type="Node2D" parent="."]
 position = Vector2(0, 8)
+
+[node name="shield_holders" type="Node2D" parent="."]
+
+[node name="right" type="Area2D" parent="shield_holders"]
+position = Vector2(7, 0)
+
+[node name="collider" type="CollisionShape2D" parent="shield_holders/right"]
+shape = SubResource("CapsuleShape2D_n10af")
+debug_color = Color(0.725699, 0.241542, 1, 0.42)
+metadata/_edit_lock_ = true
+
+[node name="left" type="Area2D" parent="shield_holders"]
+position = Vector2(-7, 0)
+
+[node name="collider" type="CollisionShape2D" parent="shield_holders/left"]
+shape = SubResource("CapsuleShape2D_n10af")
+debug_color = Color(0.725699, 0.241542, 1, 0.42)
+metadata/_edit_lock_ = true
+
+[node name="up" type="Area2D" parent="shield_holders"]
+position = Vector2(0, -7)
+rotation = 1.5708
+
+[node name="collider" type="CollisionShape2D" parent="shield_holders/up"]
+shape = SubResource("CapsuleShape2D_n10af")
+debug_color = Color(0.725699, 0.241542, 1, 0.42)
+metadata/_edit_lock_ = true
+
+[node name="down" type="Area2D" parent="shield_holders"]
+position = Vector2(0, 8)
+rotation = 1.5708
+
+[node name="collider" type="CollisionShape2D" parent="shield_holders/down"]
+shape = SubResource("CapsuleShape2D_n10af")
+debug_color = Color(0.725699, 0.241542, 1, 0.42)
+metadata/_edit_lock_ = true

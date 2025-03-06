@@ -15,6 +15,9 @@ extends CharacterBody2D
 @export var dash_effect_time: float = 0.23
 @export var dash_cooldown_time: float = 0.5
 
+@export var parry_time: float = 0.2
+@export var parry_cooldown_time: float = 0.5
+
 var was_in_air := false
 var coyote_timer := 0.0
 var jump_buffer_timer := 0.0
@@ -25,8 +28,13 @@ var dash_effect_timer := 0.0
 var dash_cooldown_timer := 0.0
 var dash_velocity_x = 0
 var is_dashing := false
-
 var prev_dir = 0
+
+var can_parry = true
+var parry_timer := 0.0
+var parry_cooldown_timer := 0.0
+var parry_dir := Vector2(0, 0)
+var is_parrying = false
 
 func jump():
 	var tween = create_tween()
@@ -82,6 +90,19 @@ func _physics_process(delta: float) -> void:
 		var img = $dash_effect.texture.get_image()
 		img.flip_x()
 		$dash_effect.texture = ImageTexture.create_from_image(img)
+		
+	if is_parrying:
+		parry_timer -= delta
+		$shield_holders/right/collider.disabled = false if parry_dir.x > 0 else true
+		$shield_holders/left/collider.disabled = false if parry_dir.x < 0 else true
+		$shield_holders/up/collider.disabled = false if parry_dir.y < 0 else true
+		$shield_holders/down/collider.disabled = false if parry_dir.y > 0 else true
+		if parry_timer <= 0:
+			$shield_holders/right/collider.disabled = true
+			$shield_holders/left/collider.disabled = true
+			$shield_holders/up/collider.disabled = true
+			$shield_holders/down/collider.disabled = true
+			is_parrying = false
 	
 	if is_dashing:
 		dash_timer -= delta
@@ -90,7 +111,6 @@ func _physics_process(delta: float) -> void:
 			velocity.y = 0
 		if dash_timer <= 0:
 			is_dashing = false
-			print("DASH OFF")
 	else:
 		if direction:
 			$sprite.flip_h = direction < 0
@@ -102,10 +122,14 @@ func _physics_process(delta: float) -> void:
 			
 		if Input.is_action_just_pressed("dash") and can_dash and dash_cooldown_timer <= 0:
 			start_dash()
+			
+		if Input.is_action_just_pressed("parry") and parry_cooldown_timer <= 0 and can_parry:
+			start_parry()
 	
 	prev_dir = 1 if not $sprite.flip_h else -1
 	dash_cooldown_timer -= delta
 	dash_effect_timer -= delta
+	parry_cooldown_timer -= delta
 
 	move_and_slide()
 
@@ -122,3 +146,22 @@ func start_dash():
 	dash_timer = dash_time
 	dash_effect_timer = dash_effect_time
 	dash_cooldown_timer = dash_cooldown_time
+	
+func start_parry():
+	var x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
+	var y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
+	parry_dir.y = y if not is_on_floor() else (-1 if y < 0 else 0)
+	parry_dir.x = x if x else (0 if parry_dir.y else (-1 if $sprite.flip_h else 1))
+	
+	is_parrying = true
+	parry_timer = parry_time
+	parry_cooldown_timer = parry_cooldown_time
+	
+	print(parry_dir)
+	
+	#might need to use this instead depending on the situation
+	#$shield_holders/right.monitoring = true if parry_dir.x > 0 else false
+	#$shield_holders/left.monitoring = true if parry_dir.x < 0 else false
+	#$shield_holders/up.monitoring = true if parry_dir.y < 0 else false
+	#$shield_holders/down.monitoring = true if parry_dir.y > 0 else false
+	
