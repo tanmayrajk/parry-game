@@ -90,6 +90,7 @@ position = Vector2(7, 0)
 
 [node name="collider" type="CollisionShape2D" parent="shield_holders/right"]
 shape = SubResource("CapsuleShape2D_n10af")
+disabled = true
 debug_color = Color(0.725699, 0.241542, 1, 0.42)
 metadata/_edit_lock_ = true
 
@@ -98,6 +99,7 @@ position = Vector2(-7, 0)
 
 [node name="collider" type="CollisionShape2D" parent="shield_holders/left"]
 shape = SubResource("CapsuleShape2D_n10af")
+disabled = true
 debug_color = Color(0.725699, 0.241542, 1, 0.42)
 metadata/_edit_lock_ = true
 
@@ -107,6 +109,7 @@ rotation = 1.5708
 
 [node name="collider" type="CollisionShape2D" parent="shield_holders/up"]
 shape = SubResource("CapsuleShape2D_n10af")
+disabled = true
 debug_color = Color(0.725699, 0.241542, 1, 0.42)
 metadata/_edit_lock_ = true
 
@@ -116,5 +119,6 @@ rotation = 1.5708
 
 [node name="collider" type="CollisionShape2D" parent="shield_holders/down"]
 shape = SubResource("CapsuleShape2D_n10af")
+disabled = true
 debug_color = Color(0.725699, 0.241542, 1, 0.42)
 metadata/_edit_lock_ = true
