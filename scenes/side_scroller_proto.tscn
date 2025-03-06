@@ -12,6 +12,7 @@ size = Vector2(605, 128)
 [node name="player" parent="." instance=ExtResource("1_xruf0")]
 position = Vector2(244, 109)
 land_effect_scene = ExtResource("2_yxsag")
+speed = 250.0
 
 [node name="ground" type="StaticBody2D" parent="."]
 position = Vector2(-2, 303)
@@ -23,6 +24,66 @@ texture = ExtResource("3_eiobi")
 metadata/_edit_lock_ = true
 
 [node name="collider" type="CollisionShape2D" parent="ground"]
+position = Vector2(238.5, 0)
+shape = SubResource("RectangleShape2D_u1s5h")
+metadata/_edit_lock_ = true
+
+[node name="ground2" type="StaticBody2D" parent="."]
+position = Vector2(47, 203)
+scale = Vector2(0.24, 0.2)
+
+[node name="sprite" type="Sprite2D" parent="ground2"]
+position = Vector2(238.5, 0)
+scale = Vector2(4.72656, 1)
+texture = ExtResource("3_eiobi")
+metadata/_edit_lock_ = true
+
+[node name="collider" type="CollisionShape2D" parent="ground2"]
+position = Vector2(238.5, 0)
+shape = SubResource("RectangleShape2D_u1s5h")
+metadata/_edit_lock_ = true
+
+[node name="ground3" type="StaticBody2D" parent="."]
+position = Vector2(266, 165)
+scale = Vector2(0.24, 0.2)
+
+[node name="sprite" type="Sprite2D" parent="ground3"]
+position = Vector2(238.5, 0)
+scale = Vector2(4.72656, 1)
+texture = ExtResource("3_eiobi")
+metadata/_edit_lock_ = true
+
+[node name="collider" type="CollisionShape2D" parent="ground3"]
+position = Vector2(238.5, 0)
+shape = SubResource("RectangleShape2D_u1s5h")
+metadata/_edit_lock_ = true
+
+[node name="ground4" type="StaticBody2D" parent="."]
+position = Vector2(61, 119)
+scale = Vector2(0.24, 0.2)
+
+[node name="sprite" type="Sprite2D" parent="ground4"]
+position = Vector2(238.5, 0)
+scale = Vector2(4.72656, 1)
+texture = ExtResource("3_eiobi")
+metadata/_edit_lock_ = true
+
+[node name="collider" type="CollisionShape2D" parent="ground4"]
+position = Vector2(238.5, 0)
+shape = SubResource("RectangleShape2D_u1s5h")
+metadata/_edit_lock_ = true
+
+[node name="ground5" type="StaticBody2D" parent="."]
+position = Vector2(268, 74)
+scale = Vector2(0.24, 0.2)
+
+[node name="sprite" type="Sprite2D" parent="ground5"]
+position = Vector2(238.5, 0)
+scale = Vector2(4.72656, 1)
+texture = ExtResource("3_eiobi")
+metadata/_edit_lock_ = true
+
+[node name="collider" type="CollisionShape2D" parent="ground5"]
 position = Vector2(238.5, 0)
 shape = SubResource("RectangleShape2D_u1s5h")
 metadata/_edit_lock_ = true
