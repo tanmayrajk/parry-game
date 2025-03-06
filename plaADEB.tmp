@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://cpwia0roubqo5"]
+
+[ext_resource type="Texture2D" uid="uid://btt2rp68csq6a" path="res://kenney_tiny-dungeon/Tiles/tile_0085.png" id="1_atslx"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_nbc4i"]
+[ext_resource type="Texture2D" uid="uid://d0pxm6v004yj" path="res://kenney_tiny-dungeon/Tiles/tile_0130.png" id="3_fvofe"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u8jcp"]
+radius = 5.0
+height = 14.0
+
+[sub_resource type="Animation" id="Animation_pdcq1"]
+resource_name = "wiggle"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0, -0.261799, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_l5p6a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.261799]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xgv3d"]
+_data = {
+"RESET": SubResource("Animation_l5p6a"),
+"wiggle": SubResource("Animation_pdcq1")
+}
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_nbc4i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.261799
+texture = ExtResource("1_atslx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_u8jcp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xgv3d")
+}
+
+[node name="pivot" type="Node2D" parent="."]
+
+[node name="aim_position" type="Node2D" parent="pivot"]
+
+[node name="aim_sprite" type="Sprite2D" parent="pivot"]
+rotation = 1.5708
+texture = ExtResource("3_fvofe")
+offset = Vector2(0, -19)

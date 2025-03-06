@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdofyyjcnn7ro"]
+
+[ext_resource type="Texture2D" uid="uid://bhu488l7tt26h" path="res://kenney_tiny-dungeon/Tiles/tile_0122.png" id="1_25tnk"]
+[ext_resource type="Script" path="res://spider.gd" id="1_d7h8x"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_74ki4"]
+radius = 8.0
+height = 16.0
+
+[node name="spider" type="CharacterBody2D"]
+script = ExtResource("1_d7h8x")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_74ki4")
+
+[node name="sprite_container" type="Node2D" parent="."]
+
+[node name="sprite" type="Sprite2D" parent="sprite_container"]
+rotation = -1.5708
+texture = ExtResource("1_25tnk")
+
+[node name="nav_agent" type="NavigationAgent2D" parent="."]
+
+[node name="refresh_timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="refresh_timer" to="." method="_on_refresh_timer_timeout"]
